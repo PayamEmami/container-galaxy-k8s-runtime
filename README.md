@@ -2,7 +2,7 @@
 ![Logo](logo.png)
 
 # Galaxy
-Version: 18.01-pheno 
+Version: 18.05-pheno 
 
 ## Short Description
 
