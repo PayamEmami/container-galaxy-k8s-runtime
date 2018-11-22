@@ -306,6 +306,7 @@
     <tool id="xcms-correct-rt" destination="dynamic-k8s-large" resources="all"/>
     <tool id="xcms-fill-peaks" destination="dynamic-k8s-large" resources="all"/>
     <tool id="xcms-dilutionfilter" destination="dynamic-k8s-medium" resources="all"/>
+	<tool id="xcms-cvfilter" destination="dynamic-k8s-medium" resources="all"/>
     <tool id="xcms-blankfilter" destination="dynamic-k8s-medium" resources="all"/>
     <tool id="save_chromatogram" destination="dynamic-k8s-small" resources="all" />
     <tool id="show_chromatogram" destination="dynamic-k8s-small" resources="all" />
@@ -323,6 +324,7 @@
     <tool id="unzip-collection" destination="dynamic-k8s-medium" resources="all"/>
     <tool id="camera-prepareoutput" destination="dynamic-k8s-medium" resources="all"/>
     <!-- OpenMS -->
+	<tool id="camera-mergeoutput" destination="dynamic-k8s-medium" resources="all"/>
     <tool id="xcmssplit" destination="dynamic-k8s-large" resources="all"/>
     <tool id="AdditiveSeries" destination="dynamic-k8s-small" resources="all"/> 
     <tool id="BaselineFilter" destination="dynamic-k8s-large" resources="all"/> 
@@ -418,6 +420,11 @@
     <tool id="TOFCalibration" destination="dynamic-k8s-medium" resources="all"/> 
     <tool id="XTandemAdapter" destination="dynamic-k8s-medium" resources="all"/> 
     <!-- MetFrag -->
+	<tool id="msnbase-search-inhouse-library-batch" destination="dynamic-k8s-xlarge" resources="all"/>
+	<tool id="msnbase-search-inhouse-library" destination="dynamic-k8s-tiny" resources="all"/>
+	<tool id="msnbase-create-inhouse-library" destination="dynamic-k8s-medium" resources="all"/>
+	<tool id="msnbase-collect-inhouse-library" destination="dynamic-k8s-medium" resources="all"/>
+	<tool id="csifingerid" destination="dynamic-k8s-medium" resources="all"/>
     <tool id="metfrag-cli-batch" destination="dynamic-k8s-large" resources="all"/>
     <tool id="msnbase-read-msms" destination="dynamic-k8s-medium" resources="all"/>
     <tool id="map-msms2camera" destination="dynamic-k8s-medium" resources="all"/>
@@ -470,6 +477,8 @@
     <tool id="melt" destination="dynamic-k8s-tiny" resources="all"/>
     <tool id="cast" destination="dynamic-k8s-tiny" resources="all"/>
     <tool id="mw2isatab" destination="dynamic-k8s-medium" resources="all"/>
+    <tool id="moderated-univariate-test" destination="dynamic-k8s-medium" resources="all"/>
+    <tool id="remove-batch-effect" destination="dynamic-k8s-medium" resources="all"/>
     <!-- DIMSpy tools -->
     <tool id="dimspy_process_scans" destination="dynamic-k8s-medium" resources="all"/>
     <tool id="dimspy_replicate_filter" destination="dynamic-k8s-medium" resources="all"/>

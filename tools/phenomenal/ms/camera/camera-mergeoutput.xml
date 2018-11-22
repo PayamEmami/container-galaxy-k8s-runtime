@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--This is a configuration file for the integration of a tools into Galaxy (https://galaxyproject.org/).-->
+<!--Proposed Tool Section: [PhenoMeNal]-->
+<tool id="camera-mergeoutput" name="camera-mergeoutput" version="0.1">
+  <description>Merge two peak and variable tables from camera-prepareoutput</description>
+  <command><![CDATA[
+/usr/local/bin/mergeVaribales.r -in $dataMatrix_in1,$dataMatrix_in2 -p $variableMetadata_in1,$variableMetadata_in2 -s $sampleMetadata_in -out $outputPeakTableOut -outp $outputVariablesOut 
+ #if $removeDup:
+ --removeDup "$removeDup"
+ #end if
+ ;
+  ]]>
+  </command>
+  <inputs>
+    <param name="dataMatrix_in1" label="Data matrix file1" type="data" format="tabular" help="variable x sample, decimal: '.', missing: NA, mode: numerical, sep: tabular" />
+    <param name="variableMetadata_in1" label="Variable metadata file1" type="data" format="tabular" help="variable x metadata, decimal: '.', missing: NA, mode: character and numerical, sep: tabular" />
+    <param name="dataMatrix_in2" label="Data matrix file2" type="data" format="tabular" help="variable x sample, decimal: '.', missing: NA, mode: numerical, sep: tabular" />
+    <param name="variableMetadata_in2" label="Variable metadata file2" type="data" format="tabular" help="variable x metadata, decimal: '.', missing: NA, mode: character and numerical, sep: tabular" />
+	<param name="sampleMetadata_in" label="Sample metadata file" type="data" format="tabular" help="sample x metadata, decimal: '.', missing: NA, mode: character and numerical, sep: tabular" />
+    <param name="removeDup" type="text" format="txt" value="" optional="True" label="removeDup" help="Name of the column in variable metadata used to remove duplicated from the merged" />
+  </inputs>
+  <outputs>
+    <data name="outputPeakTableOut" type="data" format="tabular" label="peak table" />
+    <data name="outputVariablesOut" type="data" format="tabular" label="variable information" />
+  </outputs>
+  <help>
+
+.. class:: infomark
+
+| **Tool update: See the 'NEWS' section at the bottom of the page**
+
+---------------------------------------------------
+
+.. class:: infomark
+
+**Authors**
+
+| **Payam Emami (payam.emami@medsci.uu.se)** wrote and maintains this wrapper for merging two tabular peak and variable tables.
+
+
+---------------------------------------------------
+
+=====================================================================================================================
+Merges two tabular peak and variable tables e.g. from mass spectrometry positive and negative ionization mode.
+=====================================================================================================================
+
+-----------
+Description
+-----------
+
+| This module merges two tabular peak and variable tables e.g. from mass spectrometry positive and negative ionization mode. If removeDup is provided, duplicated values in removeDup column will be removed (the most intense ion will be retained based on the average of all the values). NAs will be preserved
+| 
+
+-----------
+Input files
+-----------
+
++---------------------------+------------+
+| File                      |   Format   |
++===========================+============+
+| 1)  Data matrix 1         |   tabular  |
++---------------------------+------------+
+| 2)  Variable metadata 1   |   tabular  |
++---------------------------+------------+
+| 3)  Data matrix 2         |   tabular  |
++---------------------------+------------+
+| 4)  Variable metadata 2   |   tabular  |
++---------------------------+------------+
+| 5)  Sample metadata       |   tabular  |
++---------------------------+------------+
+
+
+----------
+Parameters
+----------
+
+removeDup
+        | This is used filtered duplicated variables 
+        |
+
+
+------------
+Output files
+------------
+
+outputPeakTableOut
+        | A tabular peak table containing abundances
+        |
+
+
+outputVariablesOut
+        | Variable data containing identification.
+        |
+
+---------------------------------------------------
+
+----
+NEWS
+----
+
+
+CHANGES IN VERSION 0.1
+========================
+
+First version
+</help>
+</tool>

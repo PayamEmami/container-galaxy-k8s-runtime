@@ -148,6 +148,7 @@
     <tool file="phenomenal/ms/xcms/xcms-correct-rt.xml" labels="XCMS"/>
     <tool file="phenomenal/ms/xcms/xcms-fill-peaks.xml" labels="XCMS"/>
     <tool file="phenomenal/ms/xcms/xcms-dilutionfilter.xml" labels="XCMS"/>
+	 <tool file="phenomenal/ms/xcms/xcms-cvfilter.xml" labels="XCMS"/>
     <tool file="phenomenal/ms/xcms/xcms-blankfilter.xml" labels="XCMS"/>
   </section>
   
@@ -278,6 +279,7 @@
     <tool file="phenomenal/ms/camera/camera-find-isotopes.xml" labels="Camera"/>
     <tool file="phenomenal/ms/camera/camera-find-adducts.xml" labels="Camera"/>
     <tool file="phenomenal/ms/camera/camera-prepareoutput.xml" labels="Camera"/>
+    <tool file="phenomenal/ms/camera/camera-mergeoutput.xml" labels="Camera"/>
     <tool file="phenomenal/w4m/lcmsmatching.xml" labels="W4M"/>
   </section> 
   <section name="Metfrag" id="pheno-metfrag">  
@@ -292,7 +294,12 @@
     <tool file="phenomenal/ms/metfrag/metfrag-aggregatemetfrag.xml" labels="Metfrag"/>
     <tool file="phenomenal/ms/metfrag/passatutto-pepscore.xml" labels="Metfrag"/>
     <tool file="phenomenal/ms/metfrag/msnbase-filter-merge-msms.xml" labels="Metfrag"/>
+	<tool file="phenomenal/ms/metfrag/csifingerid.xml" labels="Metfrag"/>
     <tool file="phenomenal/ms/metfrag.xml"  labels="Metfrag"/>
+	<tool file="phenomenal/ms/metfrag/msnbase-create-inhouse-library.xml" labels="Metfrag"/>
+	<tool file="phenomenal/ms/metfrag/msnbase-collect-inhouse-library.xml" labels="Metfrag"/>
+	<tool file="phenomenal/ms/metfrag/msnbase-search-inhouse-library.xml" labels="Metfrag"/>
+	<tool file="phenomenal/ms/metfrag/msnbase-search-inhouse-library-batch.xml" labels="Metfrag"/>
   </section>
   <section name="Eco-Metabolomics" id="ecomet">
     <tool file="phenomenal/ecomet/ecomet_01_mtbls_download.xml" labels="EcoMet"/>
@@ -349,6 +356,8 @@
     <section name="Statistical Analysis" id="pheno-stats">
       <tool file="phenomenal/stats/iterative_signature_algorithm.xml"/>
       <tool file="phenomenal/stats/papy.xml"/>
+      <tool file="phenomenal/stats/moderated-univarite-test.xml"/>
+      <tool file="phenomenal/stats/remove-batch-effect.xml"/>
       <tool file="phenomenal/w4m/generic_filter.xml" labels="W4M"/>
       <tool file="phenomenal/w4m/qualitymetrics_config.xml" labels="W4M"/> 
       <tool file="phenomenal/w4m/univariate_config.xml" labels="W4M"/>

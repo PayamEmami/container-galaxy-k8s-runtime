@@ -4,14 +4,21 @@
 <tool id="map-msms2camera" name="map-msms2camera" version="0.1">
   <description>Map MS/MS spectra to CAMERA annotations by retention time and m/z information.</description>
   <command><![CDATA[
+  #if $map_msms2camera_input_3:
 	/usr/local/bin/mapMS2ToCamera.r inputCAMERA=$map_msms2camera_input_1 inputMS2=$map_msms2camera_input_2 output=$map_msms2camera_output_1 ppm=$ppm RT=$RT;
+  #else:
+  	/usr/local/bin/mapMS2ToCamera.r inputCAMERA=$map_msms2camera_input_1 inputMS2=$map_msms2camera_input_3 output=$map_msms2camera_output_1 ppm=$ppm RT=$RT;
+  #end if
   ]]>
   </command>
   <inputs>
     <param name="map_msms2camera_input_1" type="data" format="rdata" optional="False" label="camera-find-adducts data" help="A rdata file with a xsAnnotate object from one sample with annotated adduct information" />
-    <param name="map_msms2camera_input_2" type="data" multiple="True" format="rdata" optional="False" label="msnbase-read-msms data" help="A rdata file with MS/MS information retrieved from msnbase-read-msms" />
+    <param name="map_msms2camera_input_2" type="data" multiple="True" format="rdata" optional="True" label="msnbase-read-msms data" help="A rdata file with MS/MS information retrieved from msnbase-read-msms" />
+    <param name="map_msms2camera_input_3" type="data" multiple="False" format="rdata" optional="True" label="msnbase-read-msms data" help="A rdata file with MS/MS information retrieved from msnbase-read-msms. If this is provided, this will have precedence to map_msms2camera_input_2" />
+
     <param name="ppm" type="text" value="10"  label="PPM" help="The ppm error used for the mapping" />
     <param name="RT" type="text" value="10"  label="RT" help="The retention time error (in seconds) used for the mapping" />
+
   </inputs>
   <outputs>
     <data name="map_msms2camera_output_1" type="data" format="rdata" label="map-msms2camera data" />
@@ -49,6 +56,8 @@ Description
 -----------
 
 | This module is used to map MS/MS spectra from retrieved by **msnbase-read-msms** to annotated CAMERA features retrieved from **camera-find-adducts**. The mapping is performed based on retention time and m/z values of the annotated features.
+| The purpose of two msnbase-read-msms data inputs is that, one (msnbase-read-msms data  2) will be used when all the files are to be processed together but msnbase-read-msms data 3 will be used to anotate each individual MS2 rather than combining them. The later can be used to process MS2s per file. If none of them are provided, the tool will fail.
+
 
 +------------------+-----------------+
 | predecessor tool | successor tool  |
@@ -67,6 +76,8 @@ Input files
 | 1)  camera-find-adducts data |   rdata    |
 +------------------------------+------------+
 | 2)  msnbase-read-msms data   |   rdata    |
++------------------------------+------------+
+| 3)  msnbase-read-msms data   |   rdata    |
 +------------------------------+------------+
 
 ----------

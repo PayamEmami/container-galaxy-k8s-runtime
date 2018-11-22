@@ -502,6 +502,7 @@ assignment:
   - xcmssplit
   - xcms-blankfilter
   - xcms-dilutionfilter
+  - xcms-cvfilter
 - docker_image_override: xcms
   docker_owner_override: phnmnl
   docker_repo_override: container-registry.phenomenal-h2020.eu
@@ -556,6 +557,14 @@ assignment:
   - camera-find-isotopes
   - camera-find-adducts
   - camera-prepareoutput
+  - camera-mergeoutput
+- docker_image_override: csifingerid
+  docker_owner_override: phnmnl
+  docker_repo_override: container-registry.phenomenal-h2020.eu
+  docker_tag_override: dev_v4.0.1_cv4.0.1.8
+  max_pod_retrials: 3
+  tools_id:
+  - csifingerid
 - docker_image_override: msnbase
   docker_owner_override: phnmnl
   docker_repo_override: container-registry.phenomenal-h2020.eu
@@ -568,6 +577,9 @@ assignment:
   - msms2metfrag-multiple
   - msnbase-filter-merge-msms
   - aggregatemetfrag
+  - msnbase-create-inhouse-library
+  - msnbase-collect-inhouse-library
+  - msnbase-search-inhouse-library
 - docker_image_override: mtbl-labs-uploader
   docker_owner_override: phnmnl
   docker_repo_override: container-registry.phenomenal-h2020.eu
@@ -618,3 +630,12 @@ assignment:
   max_pod_retrials: 3
   tools_id:
   - cast
+ - docker_image_override: statistics
+  docker_owner_override: phnmnl
+  docker_repo_override: container-registry.phenomenal-h2020.eu
+  docker_tag_override: v0.1_cv0.1.1.3
+  max_pod_retrials: 3
+  tools_id:
+  - moderated-univariate-test
+  - remove-batch-effect
+

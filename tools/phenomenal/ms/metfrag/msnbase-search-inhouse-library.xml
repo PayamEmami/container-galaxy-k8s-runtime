@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--This is a configuration file for the integration of a tools into Galaxy (https://galaxyproject.org/).-->
+<!--Proposed Tool Section: [PhenoMeNal]-->
+<tool id="msnbase-search-inhouse-library" name="msnbase-search-inhouse-library" version="0.1">
+<!--   <requirements>
+        <container type="docker">container-registry.phenomenal-h2020.eu/phnmnl/msnbase</container>
+  </requirements>-->
+  <description>Run library search with given metfrag parameter file(s) and characterization file.</description>
+  <command><![CDATA[
+ 	/usr/local/bin/librarySearchEngine.r -l $inputLibrary 
+	-i $param 
+	-ri $param.name
+	-out $output
+	-mz $mz 
+	-mzfa $mzfa 
+	-mzf $mzf 
+	-rt $rt  
+	-th "$th" 
+	-im $im 
+	-ts $ts 
+	-rs $rs 
+	-ncore $ncore
+	#if $dec !="F":
+	-dec  
+	#end if
+	-outT $outT 
+	#if $s !="F":
+	-s  
+	#end if;
+ ]]>
+  </command>
+  <inputs>
+    <param name="inputLibrary" type="data" format="csv" optional="False" label="-l" help="The library characterization file. See the help" />
+	<param name="param" type="data" format="txt" optional="False" label="-i" help="Metfrag parameter file"/>
+	<param name="mz" type="text" format="txt" value="10" optional="False" label="-mz" help="The ppm error for the precursor mass to search candidates" />
+	<param name="mzfa" type="text" format="txt" value="0.07" optional="False" label="-mzfa" help="The aboslute error for the fragment ions to for matching between the library and the samples" />
+	<param name="mzf" type="text" format="txt" value="30" optional="False" label="-mzf" help="The ppm error for the fragment ions to for matching between the library and the samples" />
+	<param name="rt" type="text" format="txt" value="20" optional="False" label="-rt" help="Maximum retention time in seconds deviation between library and the sample" />
+	<param name="th" type="text" format="txt" value="-1" optional="False" label="-th" help="Maximum number of reported hits (all:-1, 0: top scored)" />
+   
+	<param name="im" type="select" value="pos" optional="False" label="-im" help="Ionization mode">
+      <option value="pos" selected="True">Positive</option>
+      <option value="neg" selected="False">Negative</option>
+    </param>
+	<param name="ts" type="select" value="Scoredotproduct" optional="False" label="-ts" help="Which score to use as the main score">
+      <option value="Scoredotproduct" selected="True">DOT product</option>
+      <option value="neg" selected="False">Ion Count</option>
+    </param>
+	<param name="rs" type="text" format="txt" value="1000" optional="False" label="-rs" help="Maximum number of resampling for calculation FDR" />
+	<param name="ncore" type="text" format="txt" value="1" optional="False" label="-ncore" help="Maximum number of threads" />
+	<param name="dec" type="select" value="F" optional="False" label="-dec" help="Set to yes if you want to estimate e-value">
+      <option value="F" selected="True">No</option>
+      <option value="T" selected="False">Yes</option>
+    </param>
+	<param name="outT" type="select" value="T" optional="False" label="-outT" help="Set to yes if output tab separated file instead of comma separated">
+     <option value="T" selected="True">Tab separated</option>
+     <option value="F" selected="False">Comma separated</option>
+    </param>
+	<param name="s" type="select" value="F" optional="False" label="-s" help="Set to yes if you results for each MS2s rather than aggregated one">
+     <option value="F" selected="True">No</option>
+     <option value="T" selected="False">Yes</option>
+    </param>
+	</inputs>
+  <outputs>
+    <data name="output" type="text" format="csv" label="Search result file" />
+  </outputs>
+  <help>
+
+.. class:: infomark
+
+| **Tool update: See the 'NEWS' section at the bottom of the page**
+
+---------------------------------------------------
+
+.. class:: infomark
+
+**Authors**
+
+| **Payam Emami (payam.emami@nbis.se)** wrote and maintains this script.
+
+---------------------------------------------------
+
+=========================
+Search in-house library
+=========================
+
+-----------
+Description
+-----------
+
+| This module is used to search MS2s against in-house library. This is how it works: we assume that the library consists of one or more mzML files, each containing a number of compounds. 
+| Each individual mzML file has been run through this XCMS->CAMERA(annotate, group, find adduct, find isotope)->MSMSToCamera
+| Samples have also been run XCMS->CAMERA(annotate, group, find adduct, find isotope)->MSMSToCamera->msms2metfrag
+| This module accepts individual MS2 parameter files. For batch version, see msnbase-search-inhouse-library-batch
+|
+
+-----------
+Input files
+-----------
+
++------------------------------+------------+
+| File                         |   Format   |
++==============================+============+
+| 1)  param                    |    txt     |
++------------------------------+------------+
+| 2)  inputLibrary             |    csv     |
++------------------------------+------------+
+
+----------
+Parameters
+----------
+
+
+
+param
+        | This is the metfrag parameter file
+        |
+
+inputLibrary
+	| This file must with header contain the following information in a comma separate file:
+	| The column names should be exactly as written below in the table. If the library file has been processed by **msnbase-create-inhouse-library**, the library file should be in the correct format.
+	| In this file, each metabolite-spectrum is characterized by a mass trace, meaning that it has range, center as well as raw parent ion information.
+	| startRT: start of the mass trace (seconds) containing the MS2 ion
+	| endRT: end of the mass trace
+	| startMZ: start of the m/z containing the MS2 ion
+	| endMZ: end of the m/z containing the MS2 ion
+	| centermz: m/z center of the mass trace
+	| centerrt: RT center of the mass trace
+	| intensity: abundance of the mass trace
+	| fileName: raw file (mzML) name of the library file containing the MS2
+	| ID: ID of the metabolite (e.g. HMDB ID)
+	| Name: name of the metabolite
+	| nmass: theoretical m/z of the metabolite
+	| MS2mz: m/z of the MS2 ion
+	| MS2rt: RT of the MS2 ion
+	| MS2intensity: abundance of the MS2 ion
+	| MS2mzs: all m/zs of the framgment ions separated by ";"
+	| MS2intensities: all intensities of the fragment ions separated by ";"
+	| featureGroup: One mass trace can contain several MS2s. In this case all of them can be related. featureGroup show simply groups MS2s covered by a single mass trace
+	|
+
++---------+-------+---------+-------+----------+----------+-----------+----------+----+------+-------+-------+-------+--------------+--------+----------------+--------------+
+| startRT | endRT | startMZ | endMZ | centermz | centerrt | intensity | fileName | ID | Name | nmass | MS2mz | MS2rt | MS2intensity | MS2mzs | MS2intensities | featureGroup |
++=========+=======+=========+=======+==========+==========+===========+==========+====+======+=======+=======+=======+==============+========+================+==============+
+
+
+mz
+	| Relative precursor m/z deviation (ppm)
+	|
+
+mzfa
+	| Absolute fragment m/z deviation (th)
+	|
+
+mzf
+	| Relative fragment m/z deviation (ppm)
+	|
+
+rt
+	| Renetion time shift between the sample and the library (seconds)
+	|
+
+th
+	| Maximum number of hits (all:-1, 0: top scored)
+	|
+
+im
+	| Ionization mode (positive:pos or negative:neg)
+	|
+
+ts
+	| Score used to rank the matches between the sample and the library ()
+	|
+
+rs
+	| Maximum number of resampling for calculation of e-value
+	|
+
+dec
+	| If set to yes, e-value will be calculated for each MS2 based on randomly re-sampling hopefully unrealted MS2s and match against this one.
+	| This will take a lot of time depending on the desired number of re-sampling.
+	|
+
+outT
+	| If set the results will be written as tab separated. Otherwise, comma separated results will be outputted.
+	|
+
+s
+	| If set, the script outputs results for each MS2s individually rather than combining them
+	|
+
+------------
+Output files
+------------
+
+output
+        | A csv or tab separated output file containing identification.
+        |
+
+---------------------------------------------------
+
+----
+NEWS
+----
+
+
+CHANGES IN VERSION 0.1
+========================
+
+First version
+
+  </help>
+</tool>

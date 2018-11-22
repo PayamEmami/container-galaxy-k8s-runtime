@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--Proposed Tool Section: [Utilities]-->
-<tool id="aggregatemetfrag" name="metfrag-aggregatemetfrag" version="0.1">
+<tool id="aggregatemetfrag" name="metfrag-aggregatemetfrag" version="0.2">
 <!--
   <requirements>
     <container type="docker">phnmnl/xcms</container>
@@ -23,10 +23,22 @@ ${txt.name},
 '
 
 
- output=$outfile;
+ output=$outfile filetype=$filetype
+#if $outTable:
+ outTable=$outTable
+#end if
+ ;
   ]]></command>
   <inputs>
     <param name="infile" type="data" format="csv,zip" value="" optional="False" multiple="True" label="Input metfrag results file." />
+	 <param name="filetype" type="select" value="csv" label="filetype" help="Type of input file. ZIP or CSV ?">
+      <option value="csv" selected="True">CSV</option>
+      <option value="zip" selected="False">ZIP</option>
+    </param>
+    <param name="outTable" type="select" value="" optional= "True" label="outTable" help="Should the output be tab or comma separated">
+      <option value="F" selected="False">Comma</option>
+      <option value="T" selected="False">Tab</option>
+    </param>
   </inputs>
   <outputs>
     <data name="outfile" format="csv"/>
@@ -78,6 +90,14 @@ Input metfrag results
         | File(s) containing MetFrag identification
         |
 
+filetype
+        | Is the input zip or CSV. Very large datasets often result in a lot of MS2s. Sending all of these as parameter can be too long. So zipping can help fixing this issue.
+        |
+
+outTable
+        | Should the result will tab or comma separated? This should be set depending on which tool is coming downstream of this tool. 
+        |
+
 
 ------------
 Output files
@@ -93,6 +113,10 @@ outfile
 NEWS
 ----
 
+CHANGES IN VERSION 0.2
+========================
+
+Added two more options for selecting input type as well as output type.
 
 CHANGES IN VERSION 0.1
 ========================

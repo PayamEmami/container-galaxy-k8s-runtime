@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--This is a configuration file for the integration of a tools into Galaxy (https://galaxyproject.org/).-->
+<!--Proposed Tool Section: [PhenoMeNal]-->
+<tool id="moderated-univariate-test" name="moderated-univariate-test" version="0.1">
+  <description>Performs univariate test</description>
+  <command><![CDATA[
+/usr/local/bin/univeriateLimma.r --dataMatrix_in $dataMatrix_in 
+--sampleMetadata_in $sampleMetadata_in 
+--sampleVariable_in $variableMetadata_in 
+--sampleVariable_out $outputVariablesOut 
+--group $group 
+#if $contrasts:
+--contrasts $contrasts 
+#end if
+#if $batch1:
+--batch1 $batch1 
+#end if
+#if $batch2:
+--batch2 $batch2 
+#end if
+#if $covariates:
+--covariates $covariates
+#end if 
+#if $regular:
+--regular
+#end if 
+ ;
+
+  ]]>
+  
+  </command>
+  <inputs>
+    <param name="dataMatrix_in" label="Data matrix file" type="data" format="tabular" help="variable x sample, decimal: '.', missing: NA, mode: numerical, sep: tabular" />
+    <param name="variableMetadata_in" label="Variable metadata file" type="data" format="tabular" help="variable x metadata, decimal: '.', missing: NA, mode: character and numerical, sep: tabular" />
+	<param name="sampleMetadata_in" label="Sample metadata file" type="data" format="tabular" help="sample x metadata, decimal: '.', missing: NA, mode: character and numerical, sep: tabular" />
+    <param name="group" type="text" format="txt" value="" optional="False" label="--group" help="Column in sampleMetadata_in showing treatment conditions to do statistics on " />
+    <param name="contrasts" type="text" format="txt" value="" optional="True" label="--contrasts" help="One or more contrasts in the form of X-Y where levels of X and Y have to be in column specified using --group. If more than one contrasts selected, they should be separated by space or , or \\| or tab or |. Example, comparing groups X to Y and X to Z: X-Y,X-Z. No separating character in the contrast allowed! Leave blank if one group test is to be performed" />
+    <param name="batch1" type="text" format="txt" value="" optional="True" label="--batch1" help="one of the column names (first row) of your sample metadata showing batch variable (this will be factored)" />
+    <param name="batch2" type="text" format="txt" value="" optional="True" label="--batch1" help="one of the column names (first row) of your sample metadata showing batch variable (this will be factored)" />
+    <param name="covariates" type="text" format="txt" value="" optional="True" label="--covariates" help="one or more of the column names (first row) of your sample metadata showing covariates you want to correct for. If more than one column selected, it should be separated by space or , or \\| or tab or |" />
+ <param name="regular" type="select" value="" label="--regular" optional="True" help="If set, regular t-statistics will be performed">
+      <option value="T" selected="False">Yes</option>
+      <option value="F" selected="False">No</option>
+    </param>
+
+	</inputs>
+  <outputs>
+    <data name="outputVariablesOut" type="data" format="tabular" label="variable information" />
+  </outputs>
+  <help>
+
+.. class:: infomark
+
+| **Tool update: See the 'NEWS' section at the bottom of the page**
+
+---------------------------------------------------
+
+.. class:: infomark
+
+**Authors**
+
+| **Payam Emami (payam.emami@medsci.uu.se)** wrote and maintains this wrapper for doing statistics.
+
+
+---------------------------------------------------
+
+=====================================================================================================================
+This module performs (un)moderated t-statistics using limma package
+=====================================================================================================================
+
+-----------
+Description
+-----------
+
+| This module performs (un)moderated t-statistics using limma package
+| 
+
+-----------
+Input files
+-----------
+
++---------------------------+------------+
+| File                      |   Format   |
++===========================+============+
+| 1)  Data matrix           |   tabular  |
++---------------------------+------------+
+| 2)  Variable metadata     |   tabular  |
++---------------------------+------------+
+| 3)  Sample metadata       |   tabular  |
++---------------------------+------------+
+
+
+----------
+Parameters
+----------
+
+
+group
+        | Column in sampleMetadata_in showing treatment conditions to do statistics on 
+        |
+
+contrasts
+        | One or more contrasts in the form of X-Y where levels of X and Y have to be in column specified using --group. If more than one contrasts selected, they should be separated by space or , or \\| or tab or |. Example, comparing groups X to Y and X to Z: X-Y,X-Z. No separating character in the contrast allowed! Leave blank if one group test is to be performed
+        |
+
+group
+        | Column in sampleMetadata_in showing treatment conditions to be preserved 
+        |
+
+batch1
+        | One of the column names (first row) of your sample metadata showing batch variable (this will be factored)
+        |
+
+batch2
+        | One of the column names (first row) of your sample metadata showing batch variable (this will be factored)
+        |
+
+		
+covariates
+        | One or more of the column names (first row) of your sample metadata showing covariates you want to correct for. If more than one column selected, it should be separated by space or , or \\| or tab or |
+        |
+		
+regular
+        | If set, regular t-statistics will be performed instead of moderated
+        |
+
+------------
+Output files
+------------
+
+
+outputVariablesOut
+        | Variable data containing identification.
+        |
+
+---------------------------------------------------
+
+----
+NEWS
+----
+
+
+CHANGES IN VERSION 0.1
+========================
+
+First version
+</help>
+</tool>

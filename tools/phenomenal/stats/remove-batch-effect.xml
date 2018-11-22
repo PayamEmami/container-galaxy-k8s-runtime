@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--This is a configuration file for the integration of a tools into Galaxy (https://galaxyproject.org/).-->
+<!--Proposed Tool Section: [PhenoMeNal]-->
+<tool id="remove-batch-effect" name="remove-batch-effect" version="0.1">
+  <description>Performs regression based batch/covariates adjustment</description>
+  <command><![CDATA[
+/usr/local/bin/univeriateLimma.r --dataMatrix_in $dataMatrix_in 
+--sampleMetadata_in $sampleMetadata_in 
+--sampleVariable_out $dataMatrix_out 
+#if $group:
+--group $group 
+#end if
+#if $contrasts:
+--contrasts $contrasts 
+#end if
+#if $batch1:
+--batch1 $batch1 
+#end if
+#if $batch2:
+--batch2 $batch2 
+#end if
+#if $covariates:
+--covariates $covariates
+#end if 
+
+ ;
+
+  ]]>
+  
+  </command>
+  <inputs>
+    <param name="dataMatrix_in" label="Data matrix file" type="data" format="tabular" help="variable x sample, decimal: '.', missing: NA, mode: numerical, sep: tabular" />
+	<param name="sampleMetadata_in" label="Sample metadata file" type="data" format="tabular" help="sample x metadata, decimal: '.', missing: NA, mode: character and numerical, sep: tabular" />
+    <param name="group" type="text" format="txt" value="" optional="True" label="--group" help="Optional treatment conditions to be preserved" />
+    <param name="batch1" type="text" format="txt" value="" optional="True" label="--batch1" help="one of the column names (first row) of your sample metadata showing batch variable (this will be factored)" />
+    <param name="batch2" type="text" format="txt" value="" optional="True" label="--batch1" help="one of the column names (first row) of your sample metadata showing batch variable (this will be factored)" />
+    <param name="covariates" type="text" format="txt" value="" optional="True" label="--covariates" help="one or more of the column names (first row) of your sample metadata showing covariates you want to correct for. If more than one column selected, it should be separated by space or , or \\| or tab or |" />
+	</inputs>
+  <outputs>
+    <data name="dataMatrix_out" type="data" format="tabular" label="Adjusted data matrix file" />
+  </outputs>
+  <help>
+
+.. class:: infomark
+
+| **Tool update: See the 'NEWS' section at the bottom of the page**
+
+---------------------------------------------------
+
+.. class:: infomark
+
+**Authors**
+
+| **Payam Emami (payam.emami@medsci.uu.se)** wrote and maintains this wrapper for doing regression based batch/covariates adjustment.
+
+
+---------------------------------------------------
+
+=====================================================================================================================
+Performs regression based batch/covariates adjustment.
+=====================================================================================================================
+
+-----------
+Description
+-----------
+
+| Performs regression based batch/covariates adjustment. At least one of the batches or covariates should be given. The output will be adjusted peak matrix
+| 
+
+-----------
+Input files
+-----------
+
++---------------------------+------------+
+| File                      |   Format   |
++===========================+============+
+| 1)  Data matrix           |   tabular  |
++---------------------------+------------+
+| 2)  Variable metadata     |   tabular  |
++---------------------------+------------+
+| 3)  Sample metadata       |   tabular  |
++---------------------------+------------+
+
+
+----------
+Parameters
+----------
+
+
+group
+        | Column in sampleMetadata_in showing treatment conditions to do statistics on 
+        |
+
+group
+        | Optional treatment conditions to be preserved
+        |
+
+batch1
+        | One of the column names (first row) of your sample metadata showing batch variable (this will be factored)
+        |
+
+batch2
+        | One of the column names (first row) of your sample metadata showing batch variable (this will be factored)
+        |
+
+		
+covariates
+        | One or more of the column names (first row) of your sample metadata showing covariates you want to correct for. If more than one column selected, it should be separated by space or , or \\| or tab or |
+        |
+		
+regular
+        | If set, regular t-statistics will be performed instead of moderated
+        |
+
+------------
+Output files
+------------
+
+
+dataMatrix_out
+        | Adjusted peak matrix
+        |
+
+---------------------------------------------------
+
+----
+NEWS
+----
+
+
+CHANGES IN VERSION 0.1
+========================
+
+First version
+</help>
+</tool>

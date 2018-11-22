@@ -4,7 +4,14 @@
 <tool id="camera-prepareoutput" name="camera-prepareoutput" version="0.1">
   <description>Prepare output for doing multi/uni variate</description>
   <command><![CDATA[
-	/usr/local/bin/prepareOutput.r inputcamera=$inputcamerain inputscores=$inputscoresin inputpheno=$inputphenoin ppm=$ppmin rt=$rtin higherTheBetter=$higherTheBetterin scoreColumn=$scoretypein impute=$imputein typeColumn=$columntypein selectedType=$selectedTypein rename=$renamein renameCol=$renameColin onlyReportWithID=$onlyReportWithIDin combineReplicate=$combineReplicatein combineReplicateColumn=$combineReplicateColumnin outputPeakTable=$outputPeakTableOut outputVariables=$outputVariablesOut outputMetaData=$outputMetaDataOut log=$login sampleCoverage=$samcov sampleCoverageMethod=$samcovmethod;
+	/usr/local/bin/prepareOutput.r inputcamera=$inputcamerain inputscores=$inputscoresin inputpheno=$inputphenoin ppm=$ppmin rt=$rtin higherTheBetter=$higherTheBetterin scoreColumn=$scoretypein impute=$imputein typeColumn=$columntypein selectedType=$selectedTypein rename=$renamein renameCol=$renameColin onlyReportWithID=$onlyReportWithIDin combineReplicate=$combineReplicatein combineReplicateColumn=$combineReplicateColumnin outputPeakTable=$outputPeakTableOut outputVariables=$outputVariablesOut outputMetaData=$outputMetaDataOut log=$login sampleCoverage=$samcov sampleCoverageMethod=$samcovmethod 
+	#if $ncore:
+	ncore=$ncore 
+	#end if
+	#if $Ifnormalize:
+	Ifnormalize=$Ifnormalize
+	#end if
+	;
   ]]>
   </command>
   <inputs>
@@ -49,7 +56,13 @@
     <param name="combineReplicateColumnin" type="text" format="txt" value="rep" optional="False" label="what column represents the technical replicates" />
 <param name="samcov" type="text" format="txt" value="0" optional="true" label="Percentage of non-missing values (only number)" />
 <param name="samcovmethod" type="text" format="txt" value="global" optional="true" label="Do you want to apply coverage globally across all the runs or per group? For applying globally write global otherwise write name of the column showing the grouping." />
-
+<param name="ncore" type="text" format="txt" value="0" optional="true" label="ncore" help="Number of cores for performing mapping"/>
+	<param name="Ifnormalize" type="select" value="false" optional="true" label="Ifnormalize" help="Normalize the data using this method, default is unnormalized">
+      <option value="1" selected="False">Cyclic Loess</option>
+      <option value="2" selected="False">Median</option>
+	  <option value="3" selected="False">Reference</option>
+      <option value="4" selected="False">Regression</option>
+    </param>
   </inputs>
   <outputs>
     <data name="outputPeakTableOut" type="data" format="tabular" label="peak table" />
