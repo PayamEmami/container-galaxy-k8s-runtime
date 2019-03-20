@@ -5,9 +5,9 @@
   <description>Map MS/MS spectra to CAMERA annotations by retention time and m/z information.</description>
   <command><![CDATA[
   #if $map_msms2camera_input_3:
-	/usr/local/bin/mapMS2ToCamera.r inputCAMERA=$map_msms2camera_input_1 inputMS2=$map_msms2camera_input_2 output=$map_msms2camera_output_1 ppm=$ppm RT=$RT;
+	/usr/local/bin/mapMS2ToCamera.r inputCAMERA=$map_msms2camera_input_1 inputMS2=$map_msms2camera_input_3 output=$map_msms2camera_output_1 ppm=$ppm RT=$RT;
   #else:
-  	/usr/local/bin/mapMS2ToCamera.r inputCAMERA=$map_msms2camera_input_1 inputMS2=$map_msms2camera_input_3 output=$map_msms2camera_output_1 ppm=$ppm RT=$RT;
+  	/usr/local/bin/mapMS2ToCamera.r inputCAMERA=$map_msms2camera_input_1 inputMS2=$map_msms2camera_input_2 output=$map_msms2camera_output_1 ppm=$ppm RT=$RT;
   #end if
   ]]>
   </command>
