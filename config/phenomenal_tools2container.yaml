@@ -561,7 +561,7 @@ assignment:
 - docker_image_override: csifingerid
   docker_owner_override: phnmnl
   docker_repo_override: container-registry.phenomenal-h2020.eu
-  docker_tag_override: dev_v4.0.1_cv4.0.1.9
+  docker_tag_override: dev_v4.0.1_cv4.0.1.11
   max_pod_retrials: 3
   tools_id:
   - csifingerid
