@@ -425,6 +425,7 @@
 	<tool id="msnbase-create-inhouse-library" destination="dynamic-k8s-medium" resources="all"/>
 	<tool id="msnbase-collect-inhouse-library" destination="dynamic-k8s-medium" resources="all"/>
 	<tool id="csifingerid" destination="dynamic-k8s-medium" resources="all"/>
+	 <tool id="cfmid" destination="dynamic-k8s-medium" resources="all"/>
     <tool id="metfrag-cli-batch" destination="dynamic-k8s-large" resources="all"/>
     <tool id="msnbase-read-msms" destination="dynamic-k8s-medium" resources="all"/>
     <tool id="map-msms2camera" destination="dynamic-k8s-medium" resources="all"/>
