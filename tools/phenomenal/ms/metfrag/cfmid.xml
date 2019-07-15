@@ -32,7 +32,6 @@ databaseInChIColumn=$databaseInChIColumn
     #if $scoreType!= "None"
         scoreType=$scoreType 
     #end if    
-	;c("DotProduct","Jaccard"))
   ]]>
   </command>
   <inputs>
