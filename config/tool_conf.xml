@@ -295,6 +295,7 @@
     <tool file="phenomenal/ms/metfrag/passatutto-pepscore.xml" labels="Metfrag"/>
     <tool file="phenomenal/ms/metfrag/msnbase-filter-merge-msms.xml" labels="Metfrag"/>
 	<tool file="phenomenal/ms/metfrag/csifingerid.xml" labels="Metfrag"/>
+	  <tool file="phenomenal/ms/metfrag/cfmid.xml" labels="Metfrag"/>
     <tool file="phenomenal/ms/metfrag.xml"  labels="Metfrag"/>
 	<tool file="phenomenal/ms/metfrag/msnbase-create-inhouse-library.xml" labels="Metfrag"/>
 	<tool file="phenomenal/ms/metfrag/msnbase-collect-inhouse-library.xml" labels="Metfrag"/>
